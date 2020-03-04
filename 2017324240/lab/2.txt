@@ -1,0 +1,145 @@
+﻿课程：Linux基础与应用             编写：蔡广基
+实验二：文件操作
+
+班级：17计科2班      学号：2017324240      姓名：张泽超
+
+
+一、实验目的
+熟悉文件和目录的常见操作
+
+二、实验环境
+虚拟主机Linux。远程操作客户端putty。
+
+三、实验过程
+（一）准备
+启动虚拟主机Linux。以用户yanji远程登录Linux主机。
+
+（二）基本操作
+1、$ touch poem/song/five/plum.txt
+$ touch poem/song/five/fisher.txt
+$ touch poem/song/seven/bird.txt
+$ touch poem/song/seven/garden.txt
+$ touch poem/tang/five/brook.txt
+$ touch poem/tang/five/lovely.txt
+$ touch poem/tang/seven/frombaidi.txt
+$ touch poem/tang/seven/peach.txt
+poem
+├── song
+│   ├── five
+│   │   ├── fisher.txt~
+│   │   └── plum.txt
+│   └── seven
+│       ├── bird.txt
+│       └── garden.txt
+└── tang
+    ├── five
+    │   ├── brook.txt
+    │   └── lovely.txt
+    └── seven
+        ├── frombaidi.txt
+        └── peach.txt
+
+6 directories, 8 files
+
+
+2、ls poem
+3、cp -rf poem/tang/seven/peach.txt poem/tang poem/tang/seven/
+4、mv poem/tang/seven/peach.txt poem/tang/seven/pch.txt
+5、cp poem/tang/seven/peach.txt poem/tang poem/tang/seven/
+6、rm -rf poem/tang/seven/peach.txt
+
+（三）文本文件操作
+1、$ cat income.txt
+01  王洁怡  教师   5800
+02  肖蔓    文员   2980
+03  岳如水  教师   4500
+04  白如银  教师   6000
+05  黄金    医生   8000
+06  周文员  教师   3800
+07  方超圆  医生   10000
+08  袁胜方  文员   3100
+09  罗艳    医生   4900
+10  连天碧  文员   2500
+11  吴霞    文员   5000
+12  陈师师  教师   5500
+
+2、$ head -4 income.txt
+01  王洁怡  教师   5800
+02  肖蔓    文员   2980
+03  岳如水  教师   4500
+04  白如银  教师   6000
+
+3、$ tail -5 income.txt
+09  罗艳    医生   4900
+10  连天碧  文员   2500
+11  吴霞    文员   5000
+12  陈师师  教师   5500
+
+4、$ cat income.txt|head -10|tail -4
+07  方超圆  医生   10000
+08  袁胜方  文员   3100
+09  罗艳    医生   4900
+10  连天碧  文员   2500
+
+5、$ grep -i 如 income.txt
+03  岳如水  教师   4500
+04  白如银  教师   6000
+
+6、$ wc -l income.txt
+13 income.txt
+
+7、$ ls -bin|grep "^d"|wc -l
+0
+
+
+（四）
+1、$ ln -s /etc/sysconfig/network-scripts/ifcfg-eth0 eth0
+2、$ ls -l eth0
+lrwxrwxrwx. 1 yanji yanji 41 Oct  8 10:08 eth0 -> /etc/sysconfig/network-scripts/ifcfg-eth0
+
+3、$ cat eth0
+DEVICE=eth0
+BOOTPROTO=none
+ONBOOT=yes
+IPADDR=192.168.160.121
+NETMASK=255.255.255.0
+
+（五）vi的使用
+1、$ vi income.txt
+$ cat income.txt
+01  王洁怡  教师   5800
+02  肖蔓    文员   2980
+03  岳如水  教师   4500
+04  白如银  教师   6000
+05  黄金    医生   8000
+06  周文员  教师   3800
+07  方超圆  医生   10000
+08  袁胜方  文员   3100
+09  罗艳    医生   4900
+10  连天碧  文员   2500
+11  吴霞    文员   5000
+12  陈师师  教师   5500
+13  尤丽丽  律师   25000
+
+2、$ vi income.txt
+$ cat income.txt
+01  王洁怡  教师   5800
+02  肖蔓    职员   2980
+03  岳如水  教师   4500
+04  白如银  教师   6000
+05  黄金    医生   8000
+06  周文员  教师   3800
+07  方超圆  医生   10000
+08  袁胜方  职员   3100
+09  罗艳    医生   4900
+10  连天碧  职员   2500
+11  吴霞    职员   5000
+12  陈师师  教师   5500
+13  尤丽丽  律师   25000
+
+
+四、实验体会
+  1. Linux是多用户系统，须登录才能操作，操作后要退出。
+    2. 某些命令，如设置时间，需要超级用户操作。
+    3. 在线手册是英文，既了解命令用法，又学习专业英语，一箭双雕。
+    4. 命令操作简洁，但需要慢慢习惯。

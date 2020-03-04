@@ -1,0 +1,199 @@
+（说明：
+1. 这是实验报告样本，有节略。
+2. 命令提示符前的提示信息如 [yanji@localhost ~] 要删去，以保持报告整洁。
+3. 实验报告用记事本来写，不用Word。
+）
+
+课程：Linux基础与应用    实验一：Linux环境的使用
+
+班级：2017计算机2班      学号：2017324240      姓名：张泽超
+
+    一、实验目的
+    认识使用Linux的会话过程，熟悉工作界面shell，使用远程操作，使用基本命令。
+
+    二、实验环境
+    虚拟主机Linux。远程操作客户端putty。
+
+    三、实验过程
+
+    (一) 准备
+    1. 启动虚拟主机Linux。
+    2. 运行putty，以用户yanji远程登录Linux主机。
+
+    (二) 文件操作
+$ ls
+Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos
+$ cat>plum.txt
+墙角数枝梅，
+凌寒独自开。
+遥知不是雪，
+为有暗香来。
+    4. 文件列表
+$ touch lotus orchid bamboo
+$ ls
+bamboo   Documents  lotus  orchid    plum.txt  Templates
+Desktop  Downloads  Music  Pictures  Public    Videos
+    5. 删除文件
+$ rm lotus
+$ ls
+bamboo   Documents  Music   Pictures  Public     Videos
+Desktop  Downloads  orchid  plum.txt  Templates
+$ rm -i bamboo
+rm: remove regular empty file `bamboo'?
+-i
+
+        （三）其他基本命令
+1、清屏
+clear
+2、显示在线用户
+$ who
+yanji    tty1         2019-09-24 03:06 (:0)
+yanji    pts/0        2019-09-24 03:19 (192.168.225.1)
+    3. 在线帮助 (输出只列出首页)
+$ man printf
+PRINTF(1)                        User Commands                       PRINTF(1)
+
+NAME
+       printf - format and print data
+
+SYNOPSIS
+       printf FORMAT [ARGUMENT]...
+       printf OPTION
+
+DESCRIPTION
+       Print ARGUMENT(s) according to FORMAT, or execute according to OPTION:
+
+       --help display this help and exit
+
+       --version
+              output version information and exit
+
+       FORMAT controls the output as in C printf.  Interpreted sequences are:
+
+       \"     double quote
+
+       \\     backslash
+
+       \a     alert (BEL)
+
+       \b     backspace
+
+       \c     produce no further output
+
+       \e     escape
+
+       \f     form feed
+
+       \n     new line
+
+       \r     carriage return
+
+       \t     horizontal tab
+
+       \v     vertical tab
+
+       \NNN   byte with octal value NNN (1 to 3 digits)
+
+       \xHH   byte with hexadecimal value HH (1 to 2 digits)
+
+       \uHHHH Unicode (ISO/IEC 10646) character with hex value HHHH (4 digits)
+
+       \UHHHHHHHH
+              Unicode character with hex value HHHHHHHH (8 digits)
+
+$ man 3 printf
+PRINTF(3)                  Linux Programmer’s Manual                 PRINTF(3)
+
+NAME
+       printf, fprintf, sprintf, snprintf, vprintf, vfprintf, vsprintf, vsnprintf - formatted output conversion
+
+SYNOPSIS
+       #include <stdio.h>
+
+       int printf(const char *format, ...);
+       int fprintf(FILE *stream, const char *format, ...);
+       int sprintf(char *str, const char *format, ...);
+       int snprintf(char *str, size_t size, const char *format, ...);
+
+       #include <stdarg.h>
+
+       int vprintf(const char *format, va_list ap);
+       int vfprintf(FILE *stream, const char *format, va_list ap);
+       int vsprintf(char *str, const char *format, va_list ap);
+       int vsnprintf(char *str, size_t size, const char *format, va_list ap);
+
+   Feature Test Macro Requirements for glibc (see feature_test_macros(7)):
+
+       snprintf(), vsnprintf(): _BSD_SOURCE || _XOPEN_SOURCE >= 500 || _ISOC99_SOURCE; or cc -std=c99
+
+DESCRIPTION
+       The  functions  in  the  printf() family produce output according to a format as described below.  The functions printf() and vprintf() write output to stdout, the
+       standard output stream; fprintf() and vfprintf() write output to the given output stream; sprintf(), snprintf(), vsprintf() and vsnprintf() write to the  character
+       string str.
+
+       The functions snprintf() and vsnprintf() write at most size bytes (including the trailing null byte ('\0')) to str.
+
+       The  functions vprintf(), vfprintf(), vsprintf(), vsnprintf() are equivalent to the functions printf(), fprintf(), sprintf(), snprintf(), respectively, except that
+       they are called with a va_list instead of a variable number of arguments.  These functions do not call the va_end macro.  Because they invoke the va_arg macro, the
+       value of ap is undefined after the call.  See stdarg(3).
+
+       These  eight functions write the output under the control of a format string that specifies how subsequent arguments (or arguments accessed via the variable-length
+       argument facilities of stdarg(3)) are converted for output.
+
+       C99 and POSIX.1-2001 specify that the results are undefined if a call to sprintf(), snprintf(), vsprintf(), or vsnprintf() would cause to  copying  to  take  place
+       between objects that overlap (e.g., if the target string array and one of the supplied input arguments refer to the same buffer).  See NOTES.
+
+   Return value
+       Upon successful return, these functions return the number of characters printed (not including the trailing '\0' used to end output to strings).
+
+       The  functions  snprintf() and vsnprintf() do not write more than size bytes (including the trailing '\0').  If the output was truncated due to this limit then the
+       return value is the number of characters (not including the trailing '\0') which would have been written to the final string if enough space  had  been  available.
+       Thus, a return value of size or more means that the output was truncated.  (See also below under NOTES.)
+
+       If an output error is encountered, a negative value is returned.
+:
+4、显示时间和日期
+$ date
+Sat Sep 21 10:41:25 PDT 2019
+5、试图设置时间
+$ date -s "2019-09-21 10:38"
+date: cannot set date: Operation not permitted
+Sat Sep 21 10:38:00 PDT 2019
+6、切换到超级用户
+$ su -
+Password:
+7、设置时间
+# date -s "2019-09-21 10:38"
+Sat Sep 21 10:38:00 PDT 2019
+8、回到yanji
+# exit
+logout
+
+
+    (四) 体会Linux中的 C编程
+    1. 创建程序
+$ cat > hello.c
+#include <stdio.h>
+int main() {
+   printf("Oh...oh...ye...ye...\n");
+   printf("Love you more than I can say.\n");
+}
+    2. 编译
+$ ls
+bamboo  hello.c  orchid  plum.txt
+$ gcc hello.c -o hello
+$ ls
+bamboo  hello  hello.c  orchid  plum.txt
+    3. 执行
+$ ./hello
+Oh...oh...ye...ye...
+Love you more than I can say.
+
+    (五) 退出会话
+$ exit
+
+    四、实验小结和体会
+    1. Linux是多用户系统，须登录才能操作，操作后要退出。
+    2. 某些命令，如设置时间，需要超级用户操作。
+    3. 在线手册是英文，既了解命令用法，又学习专业英语，一箭双雕。
+    4. 命令操作简洁，但需要慢慢习惯。

@@ -1,0 +1,31 @@
+﻿Linux 作业四  存储和软件包管理
+
+班级： 17计科2班     学号：2017324240      姓名：张泽超
+
+一、填空
+1. /dev/sdb2
+2. C
+3. A
+
+二、写出下面功能的命令 (每小题只用一个命令)
+1. # fdisk -l
+2. #fdisk /dev/sdb
+3. #mkfs -t ext4 /dev/sdb1
+4. mount -t iso9660 /dev/cdrom /mnt/cdrom
+5. umount /dev/cdrom
+6. mount -t /dev/sdb1 /home2
+7. rpm -q vsftpd
+8.  yum search "php"
+9. rpm -vih tree-1.5.3-2.e16.x86_64.rpm
+10. $sudo yum -y install tree
+11. yum remove tree
+12. service httpd start 
+13. service network restart
+14. service iptables stop
+15. chkconfig --level 345 mysqld on
+16. systemctl enable named
+
+三、简答 (18 + 10 = 28分) 
+1. vim /etc/fstab
+在文本的末尾添加如下一行内容
+/dev/cdrom	/mnt	iso9660	defaults	0	0

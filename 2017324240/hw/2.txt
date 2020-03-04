@@ -1,0 +1,29 @@
+Linux 作业二  文件操作(1)
+
+班级：17计科2班      学号：2017324240      姓名：张泽超
+
+一、填空
+1. 上一个目录    当前目录    当前登录用户的用户目录
+2. /home/yanji
+3. /home/root
+4. A
+5. 
+6. A
+7. 不保存，强制退出编辑器
+8. 标记全部UserDir字符
+
+二、写出下面功能的命令。
+1. clear
+2. cat -n insec.c
+3. cp /etc/httpd/conf/httpd.conf .
+4. cp /var/named .
+5. ls -l |grep "^-"|wc -l
+6. head income.c|tail -6 income.c
+7. 
+8. cat>hill.txt    cat>sand.txt
+
+三、写出下面命令的功能。
+1. 将girl移动到lady
+2. 强制删除man目录下的所以文件
+3. 删除man目录
+4. 创建poem目录下的唐诗宋词
