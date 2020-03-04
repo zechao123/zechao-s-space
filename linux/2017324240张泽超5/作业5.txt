@@ -1,0 +1,35 @@
+Linux 作业五      进程和计划任务
+
+一、填空
+1、从指定文件at.txt读入任务,在19:31分执行一个指定的任务
+2、B
+3、B
+4、A
+5、A
+6、A
+7、正在睡眠的进程
+8、僵死进程
+9、B
+10、B
+11、A
+
+二、写出下面功能的命令
+1、ps -ax
+2、top -d 2
+3、crontab tasks.txt
+4、crontab -r
+
+三、设计周期性计划任务的记录
+1、#cat>back.sh
+10 3 * * * /root/back.sh
+
+
+2、#cat>ottf.sh
+30 18 1,16 * * /root/ottf.sh
+
+
+3、#cat>repo.sh
+0 0 1 7,1 * /root/repo.sh
+
+
+

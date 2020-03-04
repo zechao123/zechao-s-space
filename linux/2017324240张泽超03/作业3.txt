@@ -1,0 +1,31 @@
+﻿Linux 作业三  账号和文件操作(2)
+
+班级：17计科2班     学号： 2017324240      姓名：张泽超
+
+一、填空
+1. 110100000
+2. A
+3. B
+4. C
+5. A
+6. B
+
+二、写出指定功能的命令（每小题只用一个命令）
+1. groupadd devel
+2. useradd -g devel weiji
+     useradd -c "魏姬13688948589" weiji
+3. touch mail.txt
+   chmod g-w,o-w mail.txt
+4. chmod +x greet.sh
+5. tar -cf /tmp/yanji.tar.gz /home/yanji
+6. tar -xvf /tmp/yanji.tar.gz
+7. tar -cf /tmp/yanji.tar.bz2 /home/yanji
+8. tar -xvf /tmp/yanji.tar.bz2
+9. find -name /usr/share/doc/index.html
+10. mkdir -m 700 /root/.ssh
+
+三、简答
+1. 命令userdel huji 删除账号huji，但不删除账户的文件,而userdel -r huji 
+删除账户hiji已经相应的家目录
+2. wuji表示账户，x表示密码占位符 ，503表示账户UID，第四列表示GID
+第五列为账户附加基本信息，第六列表示账户家目录，第七列表示账户登录shell

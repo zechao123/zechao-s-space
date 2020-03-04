@@ -1,0 +1,176 @@
+﻿课程：Linux基础与应用   编写：蔡广基
+实验三：存储和软件包管理
+
+班级：17计科2班   学号：2017324240   姓名：张泽超
+
+一、实验mude
+1、磁盘分区的创建、格式化和挂载
+2、rmp软件包管理
+
+二、实验环境
+VMware环境，Linux主机，远程工具Putty
+三、实验过程（补充细节，记录和整理输出，必要时评述）
+（一）添加新磁盘
+1、
+2、#fdisk -l
+
+Disk /dev/sda: 12.9 GB, 12884901888 bytes
+255 heads, 63 sectors/track, 1566 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x000519d0
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *           1          39      307200   83  Linux
+Partition 1 does not end on cylinder boundary.
+/dev/sda2              39        1410    11017216   83  Linux
+/dev/sda3            1410        1567     1257472   82  Linux swap / Solaris
+
+Disk /dev/sdb: 2147 MB, 2147483648 bytes
+255 heads, 63 sectors/track, 261 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+3、Disk /dev/sdb: 2147 MB, 2147483648 bytes
+255 heads, 63 sectors/track, 261 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0xb49eea62
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1               1         132     1060258+  83  Linux
+/dev/sdb2             133         197      522112+  83  Linux
+4、# mkfs.ext4 /dev/sdb1
+Setting up swapspace version 1, size = 1060252 KiB
+no label, UUID=aa7cdd28-d59e-4342-8bff-7f97789551f6
+# mkswap /dev/sdb2
+Setting up swapspace version 1, size = 522108 KiB
+no label, UUID=d5912e0a-bfd1-4b28-8e23-9aea2b353b6c
+
+5、#mount -t /dev/sdb1 /home2
+6、# mkdir /home2
+# cd /home2
+# touch cc.txt
+7、# umount /dev/sdb1
+# umount /dev/sdb2
+
+
+（二）光盘的使用
+1、
+2、# vi /etc/fstab
+# mkdir -p /mnt/cdrom
+# ls /mnt/cdrom
+# mount -t iso9660  /dev/cdrom /mnt/cdrom
+3、# cd /mnt/cdrom
+4、# umount /mnt/cdrom
+5、# vi /etc/fstab
+在文本的末尾添加如下一行内容：
+/dev/cdrom         /mnt         iso9660        defaults          0   0
+6、# mount -a
+# mount
+/dev/sda2 on / type ext4 (rw)
+proc on /proc type proc (rw)
+sysfs on /sys type sysfs (rw)
+devpts on /dev/pts type devpts (rw,gid=5,mode=620)
+tmpfs on /dev/shm type tmpfs (rw,rootcontext="system_u:object_r:tmpfs_t:s0")
+/dev/sda1 on /boot type ext4 (rw)
+none on /proc/sys/fs/binfmt_misc type binfmt_misc (rw)
+vmware-vmblock on /var/run/vmblock-fuse type fuse.vmware-vmblock (rw,nosuid,nodev,default_permissions,allow_other)
+
+（三）软件包管理
+1、$ rpm -qa | wc -l
+938
+2、$ rpm -q  tree
+package tree is not installed
+3、]$ rpm ivh tree-1.5.3-2.e16.i686.rpm
+RPM version 4.8.0
+Copyright (C) 1998-2002 - Red Hat, Inc.
+This program may be freely redistributed under the terms of the GNU GPL
+
+Usage: rpm [-aKfgpWHqVcdilsKiv?] [-a|--all] [-f|--file] [-g|--group]
+        [-p|--package] [-W|--ftswalk] [--pkgid] [--hdrid] [--fileid]
+        [--specfile] [--triggeredby] [--whatrequires] [--whatprovides]
+        [--nomanifest] [-c|--configfiles] [-d|--docfiles] [--dump] [-l|--list]
+        [--queryformat=QUERYFORMAT] [-s|--state] [--nofiledigest] [--nomd5]
+        [--nofiles] [--nodeps] [--noscript] [--comfollow] [--logical]
+        [--nochdir] [--nostat] [--physical] [--seedot] [--xdev]
+        [--whiteout] [--addsign] [-K|--checksig] [--delsign] [--import]
+        [--resign] [--nodigest] [--nosignature] [--initdb] [--rebuilddb]
+        [--aid] [--allfiles] [--allmatches] [--badreloc]
+        [-e|--erase <package>+] [--excludedocs] [--excludepath=<path>]
+        [--fileconflicts] [--force] [-F|--freshen <packagefile>+] [-h|--hash]
+        [--ignorearch] [--ignoreos] [--ignoresize] [-i|--install] [--justdb]
+        [--nodeps] [--nofiledigest] [--nomd5] [--nocontexts] [--noorder]
+        [--nosuggest] [--noscripts] [--notriggers] [--oldpackage]
+        [--percent] [--prefix=<dir>] [--relocate=<old>=<new>]
+        [--replacefiles] [--replacepkgs] [--test]
+        [-U|--upgrade <packagefile>+] [--quiet] [-D|--define 'MACRO EXPR']
+        [-E|--eval 'EXPR'] [--macros=<FILE:...>] [--nodigest] [--nosignature]
+        [--rcfile=<FILE:...>] [-r|--root ROOT] [--querytags] [--showrc]
+        [--quiet] [-v|--verbose] [--version] [-?|--help] [--usage]
+        [--scripts] [--setperms] [--setugids] [--conflicts] [--obsoletes]
+        [--provides] [--requires] [--info] [--changelog] [--xml]
+        [--triggers] [--last] [--dupes] [--filesbypkg] [--fileclass]
+        [--filecolor] [--fscontext] [--fileprovide] [--filerequire]
+        [--filecaps]
+
+4、$ tree
+.
+├── ff
+│   ├── tree-1.8.0
+│   │   ├── CHANGES
+│   │   ├── color.c
+│   │   ├── color.o
+│   │   ├── doc
+│   │   │   ├── tree.1
+│   │   │   ├── tree.1.fr
+│   │   │   └── xml.dtd
+│   │   ├── file.c
+│   │   ├── file.o
+│   │   ├── hash.c
+│   │   ├── hash.o
+│   │   ├── html.c
+│   │   ├── html.o
+│   │   ├── INSTALL
+│   │   ├── json.c
+│   │   ├── json.o
+│   │   ├── LICENSE
+│   │   ├── Makefile
+│   │   ├── README
+│   │   ├── strverscmp.c
+│   │   ├── TODO
+│   │   ├── tree
+│   │   ├── tree.c
+│   │   ├── tree.h
+│   │   ├── tree.o
+│   │   ├── unix.c
+│   │   ├── unix.o
+│   │   ├── xml.c
+│   │   └── xml.o
+│   └── tree-1.8.0.tgz
+└── poem
+    ├── song
+    │   ├── five
+    │   │   ├── fisher.txt
+    │   │   └── fisher.txt~
+    │   └── seven
+    │       ├── bird.txt
+    │       └── garden.txt
+    └── tang
+        ├── five
+        │   ├── brook.txt
+        │   └── lovely.txt
+        └── seven
+            ├── frombaidi.txt
+            └── peach.txt
+
+10 directories, 37 files
+
+四、实验总结和体会
+1. Linux是多用户系统，须登录才能操作，操作后要退出。
+    2. 某些命令，如设置时间，需要超级用户操作。
+    3. 在线手册是英文，既了解命令用法，又学习专业英语，一箭双雕。
+    4. 命令操作简洁，但需要慢慢习惯。

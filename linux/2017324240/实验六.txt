@@ -1,0 +1,73 @@
+﻿课程：Linux基础与应用      编写：蔡广基
+实验六：Shell编程
+
+
+班级：17计科2班   学号：2017324240    姓名：张泽超
+
+
+一、实验目的
+熟悉shell脚本的创建和执行。
+
+
+二、实验过程（补充细节，记录和整理输出，必要时评述）
+
+
+（一）准备
+
+运行VMware vorkstation,并以yanji登录。
+
+（二）脚本的创建写和执行
+1、编写脚本
+$ cat〉hi
+#! /bin/bash
+echo "Hi,I'am $USER."
+h=$(date +%H)
+if [ $h -lt 12 ];then
+   echo "Good morning."
+elif [ $h -lt 18 ];then
+   echo "Good afternoon."
+else
+   echo "Good evening."
+fi
+
+2、直接启动子Shell中执行
+$ sh hi
+Hi,I'am yanji.
+Good morning.
+
+3、$ chmod +x hi
+$ ./hi
+Hi,I'am yanji.
+Good morning.
+
+4、命令行参数
+$ cd
+$ mkdir -p bin
+$ cat > bin/greet
+#! /bin/bash
+[ $# -lt 2 ] && exit 1
+echo "Hi, $1."
+echo "Hi, $2."
+$ chmod +x bin/greet
+$ greet Ted Bill
+Hi, Ted.
+Hi, Bill.
+$ greet Susan Mary
+Hi, Susan.
+Hi, Mary.
+$ greet Jhon
+
+5、循环
+$ cd
+$ cat > bin/sum2
+#! /bin/bash
+declare -i s=0
+for x in $*; do
+      s=s+$x
+done
+echo $s
+$ chmod +x bin/sum2
+$ sum2 40 80 90 100
+310
+
+四、实验总结和体会

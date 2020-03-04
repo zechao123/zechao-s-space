@@ -1,0 +1,28 @@
+Linux  作业六      shell环境和文本工具
+
+一、填空
+1、C
+2、A
+3、B
+
+二、写出下面功能的命令行（每小题一行）
+1、$alias rm='rm -i'
+2、alias
+3、history
+4、echo "11  薛丽  文员  4800">>income
+5、ls -LR|grep /bin|wc -l
+6、grep --color ^月 poem
+7、sed -n '2\t3p' income
+8、sort -nrk4 income|head -3
+
+三、写出下面各小题最后一条命令的输出。
+1、400
+2、400
+3、2019-11-10
+4、yanji
+5、user name:yanji
+
+四、简答
+1）没有配置path环境，/usr/bin主要放置g++ gcc等应用软件工具的必备执行档。
+
+2）bin目录
