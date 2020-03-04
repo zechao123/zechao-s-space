@@ -1,0 +1,117 @@
+create function get_prompt(book_id number)
+    return VARCHAR2
+  AS
+    prompt VARCHAR2(10);
+   book_time DATE;
+    lend_number INTEGER;
+    BEGIN
+    select booktime into book_time from book
+    where bookid=book_id;
+   select COUNT(l.bookid) into lend_number from book b,lend l
+   where b.bookid=l.boohid
+ADN (l.lendtime between ADD_MONTHS (SYSDATE,-1) AND SYSDATE)
+AND b.bookid=book_id;
+
+IF(book_time between AND_MONTHS(SYSDATE,-1) AND SYSDATE)
+AND lend_number>=3 then
+prompt := 'New、Hot';
+ELSIF book_time between AND_MONTHS(SYSDATE,-1) AND SYSDATE THEN
+prompt := 'New';
+ELSIF lend_number >=3 THEN
+prompt :='Hot';
+ELSE prompt :=' ';
+END IF;
+RETURN prompt;
+END get_prompt;
+/
+
+
+create table student(
+sid int,
+sname varchar(10),
+sage int);
+
+
+create view student_view
+as
+select sid,sname,sage+1 new_age
+from student
+with check option;
+
+create trigger insteadof_student_view
+instead of insert
+on student_view
+for each row
+begin
+insert into student(sid,sname,sage)
+values(:NEW.sid, :NEW.sname, :NEW.new_age);
+end insteadof_student_view;
+/
+
+
+insert into student_view VALUES(1004,'PETTER',22);
+
+select *from student WHERE sid=1004; 
+
+
+create table student(
+    id NUMBER(4),
+    name VARCHAR2(10),
+    age NUMBER(4));
+
+
+
+create function get_prompt(book_id number)
+return varchar2
+as 
+ prompt varchar2(10);
+ book_time date;
+ lend_num integer;
+ begin
+ select booktime into book_time from book
+  where bookid = book_id;
+ select count(l.bookid) into lend_num from book b,lend l
+  where b.bookid=l.bookid 
+  and (l.borrowdate between add_months(sysdate ,-1) and sysdate)
+  and b.bookid = book_id;
+ if (book_time between add_months(sysdate ,-1)and sysdate)
+   and lend_num >=3 then
+   prompt :='New\hot';
+ elsif book_time between add_months(sysdate ,-1)and sysdate then
+  prompt:='New';
+ elsif lend_num>=3 then
+  prompt:='Hot';
+ else prompt:=' ';
+ end if;
+ return prompt;
+end get_prompt;
+/
+
+
+CREATE TRIGGER up_date_student_trigger
+    after UPDATE
+    ON student
+    for each row
+    BEGIN
+   INSERT INTO record values
+    ('执行了UPDATE操作。执行该操作前的数据为：id=' ||:OLD.id
+    || ',name='||:OLD.name||',age='|| :OLD.age,sysdate);
+    end update_student_trigger;
+    /
+
+ insert into student values(50,'小明',24);
+
+已创建 1 行。
+
+SQL> insert into student values(51,'小辉',25);
+
+已创建 1 行。
+
+SQL> insert into student values(52,'小蓝',23);
+
+已创建 1 行。
+
+
+create table record(
+    content VARCHAR2(521),
+    rtime TIMESTAMP);
